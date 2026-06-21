@@ -724,6 +724,50 @@ select:focus {
   font-weight: 720;
 }
 
+.pokemon-character {
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.heading-with-pikachu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.pokemon-pikachu {
+  flex: 0 0 auto;
+  width: 84px;
+  height: 84px;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.12));
+}
+
+.pokemon-slowpoke-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.pokemon-slowpoke-wrap span {
+  max-width: 150px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.pokemon-slowpoke {
+  width: 112px;
+  height: 96px;
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.1));
+}
+
 @media (max-width: 760px) {
   .topbar-actions {
     align-items: stretch;
@@ -741,5 +785,14 @@ select:focus {
   .remove-preview-row {
     width: 100%;
     border-radius: 12px;
+  }
+
+  .pokemon-pikachu {
+    width: 66px;
+    height: 66px;
+  }
+
+  .pokemon-slowpoke-wrap {
+    justify-content: center;
   }
 }
