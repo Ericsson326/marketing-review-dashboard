@@ -11,14 +11,14 @@
       <aside class="sidebar">
         <div class="brand-block">
           <p class="eyebrow">Marketing Review</p>
-          <h1>今日内容审核</h1>
-          <p class="subtitle">今天要做什么、做到哪一步、还差谁审核，一眼就能看清。</p>
+          <h1>营销内容排期</h1>
+          <p class="subtitle">上传日历截图，自动整理日期与内容，再统一跟进审核进度。</p>
         </div>
 
         <section class="summary" aria-label="今日概览">
           <div>
             <span id="totalCount">0</span>
-            <small>今日内容</small>
+            <small>全部排期</small>
           </div>
           <div>
             <span id="pendingCount">0</span>
@@ -54,7 +54,11 @@
             发布时间
             <input id="timeInput" type="time" value="18:00" />
           </label>
-          <button type="submit">＋ 新增今日内容</button>
+          <label>
+            排期日期
+            <input id="dateInput" type="date" required />
+          </label>
+          <button type="submit">＋ 新增排期内容</button>
         </form>
       </aside>
 
@@ -62,13 +66,16 @@
         <header class="topbar">
           <div>
             <p id="todayLabel" class="date-label"></p>
-            <h2>审核进度看板</h2>
-            <p class="workspace-subtitle">适合每日站会、发布前检查和多人协作确认。</p>
+            <h2>审核与排期看板</h2>
+            <p class="workspace-subtitle">按发布日期排序，适合每日站会、发布前检查和多人协作确认。</p>
           </div>
-          <div class="view-tools" role="group" aria-label="筛选内容">
-            <button class="filter-button is-active" type="button" data-filter="全部">全部</button>
-            <button class="filter-button" type="button" data-filter="待审核">待审核</button>
-            <button class="filter-button" type="button" data-filter="已完成">已完成</button>
+          <div class="topbar-actions">
+            <button id="openScannerButton" class="scan-button" type="button">扫描营销日历</button>
+            <div class="view-tools" role="group" aria-label="筛选内容">
+              <button class="filter-button is-active" type="button" data-filter="全部">全部</button>
+              <button class="filter-button" type="button" data-filter="待审核">待审核</button>
+              <button class="filter-button" type="button" data-filter="已完成">已完成</button>
+            </div>
           </div>
         </header>
 
@@ -121,6 +128,47 @@
       </article>
     </template>
 
+    <dialog id="scanDialog" class="scan-dialog">
+      <form method="dialog" class="dialog-head">
+        <div>
+          <p class="eyebrow">Calendar Scanner</p>
+          <h2>导入营销日历截图</h2>
+          <p>图片只在当前浏览器识别。导入前可以修改识别结果。</p>
+        </div>
+        <button class="close-button" value="cancel" aria-label="关闭">×</button>
+      </form>
+      <div class="scan-body">
+        <label class="drop-zone" for="calendarImages">
+          <strong>选择或拖入日历截图</strong>
+          <span>支持 PNG、JPG、WEBP，可一次选择多张</span>
+          <input id="calendarImages" type="file" accept="image/png,image/jpeg,image/webp" multiple />
+        </label>
+        <div id="scanProgress" class="scan-progress" hidden>
+          <div><span id="scanProgressBar"></span></div>
+          <p id="scanProgressText">准备识别...</p>
+        </div>
+        <section id="scanPreview" class="scan-preview" hidden>
+          <div class="preview-head">
+            <div><h3>识别结果</h3><p>请确认日期和内容，再加入排期。</p></div>
+            <button id="addPreviewRow" class="secondary-button" type="button">新增一行</button>
+          </div>
+          <div id="previewRows" class="preview-rows"></div>
+          <button id="importScheduleButton" class="import-button" type="button">确认并加入排期</button>
+        </section>
+      </div>
+    </dialog>
+    <template id="previewRowTemplate">
+      <div class="preview-row">
+        <input class="preview-date" type="date" aria-label="排期日期" />
+        <input class="preview-title" type="text" placeholder="排期内容" aria-label="排期内容" />
+        <select class="preview-channel" aria-label="渠道">
+          <option>小红书</option><option>抖音</option><option>微信视频号</option>
+          <option>朋友圈</option><option>公众号</option><option>门店物料</option><option>其他</option>
+        </select>
+        <button class="remove-preview-row" type="button" aria-label="移除">×</button>
+      </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@7/dist/tesseract.min.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
