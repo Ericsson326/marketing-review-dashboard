@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>内容审核工作台</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <p class="eyebrow">Marketing Review</p>
+          <h1>今日内容审核</h1>
+          <p class="subtitle">今天要做什么、做到哪一步、还差谁审核，一眼就能看清。</p>
+        </div>
+
+        <section class="summary" aria-label="今日概览">
+          <div>
+            <span id="totalCount">0</span>
+            <small>今日内容</small>
+          </div>
+          <div>
+            <span id="pendingCount">0</span>
+            <small>待审核</small>
+          </div>
+          <div>
+            <span id="doneCount">0</span>
+            <small>已完成</small>
+          </div>
+        </section>
+
+        <form id="contentForm" class="entry-form">
+          <label>
+            内容标题
+            <input id="titleInput" type="text" placeholder="例如：618 护肤套装小红书图文" required />
+          </label>
+          <label>
+            渠道
+            <select id="channelInput">
+              <option>小红书</option>
+              <option>抖音</option>
+              <option>微信视频号</option>
+              <option>朋友圈</option>
+              <option>公众号</option>
+              <option>门店物料</option>
+            </select>
+          </label>
+          <label>
+            负责人
+            <input id="ownerInput" type="text" placeholder="例如：Lynn" />
+          </label>
+          <label>
+            发布时间
+            <input id="timeInput" type="time" value="18:00" />
+          </label>
+          <button type="submit">＋ 新增今日内容</button>
+        </form>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p id="todayLabel" class="date-label"></p>
+            <h2>审核进度看板</h2>
+            <p class="workspace-subtitle">适合每日站会、发布前检查和多人协作确认。</p>
+          </div>
+          <div class="view-tools" role="group" aria-label="筛选内容">
+            <button class="filter-button is-active" type="button" data-filter="全部">全部</button>
+            <button class="filter-button" type="button" data-filter="待审核">待审核</button>
+            <button class="filter-button" type="button" data-filter="已完成">已完成</button>
+          </div>
+        </header>
+
+        <section class="pipeline" aria-label="流程阶段">
+          <div class="step">
+            <span>1</span>
+            <strong>刚刚开始</strong>
+          </div>
+          <div class="step">
+            <span>2</span>
+            <strong>已写文案</strong>
+          </div>
+          <div class="step">
+            <span>3</span>
+            <strong>有初稿图片</strong>
+          </div>
+          <div class="step">
+            <span>4</span>
+            <strong>待审核</strong>
+          </div>
+          <div class="step">
+            <span>5</span>
+            <strong>已完成</strong>
+          </div>
+        </section>
+
+        <section id="contentList" class="content-list" aria-live="polite"></section>
+      </section>
+    </main>
+
+    <template id="contentCardTemplate">
+      <article class="content-card">
+        <div class="card-main">
+          <div class="channel-mark" aria-hidden="true"></div>
+          <div class="card-copy">
+            <div class="card-title-row">
+              <h3></h3>
+              <span class="status-pill"></span>
+            </div>
+            <p class="meta"></p>
+            <div class="progress-track" aria-hidden="true">
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <select class="status-select" aria-label="修改状态"></select>
+          <button class="delete-button" type="button" aria-label="删除内容">删除</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
